@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["rule_id", "title", "qualifiedSearch"],
+    "properties": {
+      "rule_id": { "type": "integer" },
+      "title": { "type": "string" },
+      "qualifiedSearch": { "type": "string" },
+      "description": { "type": "string" },
+      "actions": { "type": "string" },
+      "cron_schedule": { "type": "string" },
+      "dispatch.earliest_time": { "type": "string" },
+      "dispatch.latest_time": { "type": "string" },
+      "email_count": { "type": ["integer", "null"] },
+      "has_triggered": { "type": "integer" },
+      "last_trigger_date": { "type": ["string", "null"] },
+      "notable_count": { "type": "integer" },
+      "notable_public": { "type": ["string", "null"] },
+      "risk_count": { "type": "integer" },
+      "updated": { "type": "string" },
+      "author": { "type": "string" }
+    },
+    "additionalProperties": false
+  }

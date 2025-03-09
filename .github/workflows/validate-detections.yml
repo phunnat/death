@@ -1,0 +1,36 @@
+name: Validate Cyber Detections
+
+on:
+  push:
+    paths:
+      - 'rule_files/*.yml'  # Trigger only when YAML files in rule_files change
+  pull_request:
+    paths:
+      - 'rule_files/*.yml'
+
+jobs:
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Validate YAML syntax using yamllint
+      - name: Lint YAML files
+        run: |
+          yamllint -c .yamllint.yml rule_files/*.yml
+        # yamllint is pre-installed on Ubuntu runners
+
+      # Validate schema using a schema validator (e.g., yamale)
+      - name: Install Yamale
+        run: pip install yamale
+
+      - name: Validate YAML against schema
+        run: |
+          yamale -s .github/schema.json rule_files/*.yml
+
+      # Custom checks for detection guide
+      - name: Check detection guide compliance
+        run: |
+          python .github/validate_guide.py rule_files/*.yml
